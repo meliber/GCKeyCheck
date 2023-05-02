@@ -10,9 +10,9 @@ from common import buttonclick
 with open('config.json') as config_file:
     data = json.load(config_file)
 
-def main():
-    driver = uc.Chrome()
-    url = "https://www.cic.gc.ca/"
+driver = uc.Chrome()
+url = "https://www.cic.gc.ca/"
+def main(driver=driver, url=url):
 
     #driver.minimize_window()
     driver.get(url)
@@ -62,6 +62,21 @@ def main():
         print('status has no changes.')
     else:
         print('status updated!')
+    return page, previous_status
 
 if __name__ == '__main__':
-    main()
+    flag = True
+    counter = 0
+    while flag:
+        counter += 1
+        try:
+            driver = uc.Chrome()
+            page, previous_status = main(driver, url)
+            if page:
+                flag = False
+                time.sleep(300)
+        except:
+            driver.quit()
+            time.sleep(sleep_time)
+    if not flag:
+        print(f'tried {counter} times')
