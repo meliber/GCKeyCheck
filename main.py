@@ -14,7 +14,7 @@ driver = uc.Chrome()
 url = "https://www.cic.gc.ca/"
 def main(driver=driver, url=url):
 
-    #driver.minimize_window()
+    driver.minimize_window()
     driver.get(url)
     time.sleep(sleep_time)
 
@@ -39,7 +39,7 @@ def main(driver=driver, url=url):
         response = data['questions_and_answers'][challenge]
     except:
         raise Exception('failed to get response')
-    
+
     answer = driver.find_element(By.ID, 'answer')
     answer.send_keys(response)
     time.sleep(sleep_time)
@@ -57,7 +57,7 @@ def main(driver=driver, url=url):
     else:
         with open('status_page.html', encoding='utf-8') as f:
             previous_status = f.read()
-    
+
     if page == previous_status:
         print('status has no changes.')
     else:
@@ -70,13 +70,16 @@ if __name__ == '__main__':
     while flag:
         counter += 1
         try:
-            driver = uc.Chrome()
+            #driver = uc.Chrome()
             page, previous_status = main(driver, url)
             if page:
                 flag = False
-                time.sleep(300)
+                driver.maximize_window()
+                key = input('press any key to exit')
+                if key:
+                    driver.quit()
         except:
-            driver.quit()
+            #driver.quit()
             time.sleep(sleep_time)
     if not flag:
         print(f'tried {counter} times')
