@@ -14,7 +14,7 @@ driver = uc.Chrome()
 url = "https://www.cic.gc.ca/"
 def main(driver=driver, url=url):
 
-    driver.minimize_window()
+    #driver.minimize_window()
     driver.get(url)
     time.sleep(sleep_time)
 
@@ -74,7 +74,7 @@ if __name__ == '__main__':
             page, previous_status = main(driver, url)
             if page:
                 flag = False
-                driver.maximize_window()
+                #driver.maximize_window()
                 key = input('press any key to exit')
                 if key:
                     driver.quit()
