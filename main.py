@@ -19,7 +19,7 @@ def main(driver=driver, url=url):
     time.sleep(sleep_time)
 
     buttonclick(driver, 'LINK_TEXT', 'English')
-    buttonclick(driver, 'LINK_TEXT', 'Sign in or create an account to apply online')
+    buttonclick(driver, 'LINK_TEXT', 'Sign in or create an IRCC secure account')
     buttonclick(driver, 'LINK_TEXT', 'Sign in with GCKey')
 
     username = driver.find_element(By.ID, 'token1')
@@ -78,7 +78,9 @@ if __name__ == '__main__':
                 key = input('press any key to exit')
                 if key:
                     driver.quit()
-        except:
+        except Exception as e:
+            print(e)
+            print('retrying...')
             #driver.quit()
             time.sleep(sleep_time)
     if not flag:
